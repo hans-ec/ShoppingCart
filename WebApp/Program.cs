@@ -9,7 +9,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Sql")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(x =>
+{
+    x.IdleTimeout = TimeSpan.FromDays(30);
+    x.Cookie.HttpOnly = true;
+    x.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -27,6 +33,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
