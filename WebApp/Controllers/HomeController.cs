@@ -1,15 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebApp.Models;
+using WebApp.Repositories;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IProductRepository _productRepository;
 
-        public IActionResult Index()
+        public HomeController(IProductRepository productRepository)
         {
-            return View();
+            _productRepository = productRepository;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = new HomeViewModel
+            {
+                NewArrivals = await _productRepository.GetAsync()
+            };
+
+            return View(viewModel);
         }
 
 
