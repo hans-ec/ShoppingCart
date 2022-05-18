@@ -1,6 +1,11 @@
-﻿@{
+﻿@using Newtonsoft.Json
+@model HomeViewModel
+
+@{
     ViewData["Title"] = "Clothes for all genders";
 }
+
+
 <div class="container">
     <div class="row align-items-center my-5">
         <div class="col-3">
@@ -10,26 +15,12 @@
             <partial name="_SearchboxPartial" />
         </div>
         <div class="col-4 d-flex align-items-center justify-content-between">
-            <partial name="_ShoppingCartPartial" />
+            <partial name="_ShoppingCartPartial" model="Model.ShoppingCart" />
         </div>
     </div>
 </div>
 
 <partial name="_BannerPartial" />
 
-<div id="new-arrivals" class="new-arrivals mt-5">
-    <div class="container">
-        <div class="section-title">
-            <div>NEW <span class="text-theme">ARRIVALS</span></div>
-            <div><img src="images/wave-line.svg" alt=""></div>
-            <div class="section-subtitle">Check out our latest products from top fashion designers</div>
-        </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-
-            <partial name="_ProductCardPartial" />
-            <partial name="_ProductCardPartial" />
-            <partial name="_ProductCardPartial" />
-
-        </div>
-    </div>
-</div>
+<partial name="_NewArrivalsPartial" model="Model.NewArrivals" />
+@*<p class="mb-4">@Html.Raw(JsonConvert.SerializeObject(Model.ShoppingCart) as String)</p>*@
