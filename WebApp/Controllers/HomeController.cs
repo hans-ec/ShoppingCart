@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using WebApp.Models;
 using WebApp.Repositories;
@@ -16,9 +17,14 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ShoppingCart shoppingCart;
+            try { shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(HttpContext.Session.GetString("ShoppingCart")); }
+            catch { shoppingCart = new ShoppingCart(); }
+
             var viewModel = new HomeViewModel
             {
-                NewArrivals = await _productRepository.GetAsync()
+                NewArrivals = await _productRepository.GetAsync(),
+                ShoppingCart = shoppingCart
             };
 
             return View(viewModel);

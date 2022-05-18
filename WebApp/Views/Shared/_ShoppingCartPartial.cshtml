@@ -1,9 +1,11 @@
-﻿<div><i class="fa-regular fa-user"></i> My account</div>
+﻿@model ShoppingCart
+
+<div><i class="fa-regular fa-user"></i> My account</div>
 <div><i class="fa-regular fa-heart"></i></div>
 <div><i class="fa-regular fa-shuffle"></i></div>
 <button class="btn position-relative">
     <i class="fa-regular fa-bag-shopping position-relative">
-        <span class="position-absolute translate-middle badge rounded-pill theme-color">2</span>
+        <span class="position-absolute translate-middle badge rounded-pill theme-color">@Model.TotalQuantity</span>
     </i> 
-    $9990.00
+    $@Model.TotalPrice
 </button>
